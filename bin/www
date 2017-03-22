@@ -77,6 +77,10 @@ function onError(error) {
 
 server.on('error', onError);
 
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string'
@@ -86,7 +90,3 @@ function onListening() {
 }
 
 server.on('listening', onListening);
-
-/**
- * Event listener for HTTP server "listening" event.
- */
