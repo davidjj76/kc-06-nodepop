@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Prueba",
+    "price": 35,
+    "forSale": false,
+    "tags": ["motor", "mobile"]
+  }, {
+    "name": "Prueba2",
+    "price": 55,
+    "forSale": true,
+    "tags": ["lifestyle", "mobile"]
+  }
+]
