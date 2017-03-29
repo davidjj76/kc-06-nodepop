@@ -5,29 +5,29 @@ const Schema = mongoose.Schema;
 const advertisementSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   forSale: {
     type: Boolean,
-    default: true
+    default: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   imageUrl: {
     type: String,
-    default: ''
+    default: '',
   },
   tags: {
     type: [
       {
         type: String,
-        enum: ['work', 'lifestyle', 'motor', 'mobile']
-      }
+        enum: ['work', 'lifestyle', 'motor', 'mobile'],
+      },
     ],
-    required: true
-  }
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Advertisement', advertisementSchema);

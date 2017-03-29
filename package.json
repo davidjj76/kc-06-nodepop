@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "./node_modules/.bin/nodemon"
+    "dev": "./node_modules/.bin/nodemon",
+    "lint": "./node_modules/eslint/bin/eslint.js . --fix",
+    "watch:lint": "node node_modules/eslint-watch/bin/esw -w --fix"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -21,6 +23,7 @@
     "eslint": "^3.18.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-watch": "^3.0.1",
     "nodemon": "^1.11.0"
   }
 }

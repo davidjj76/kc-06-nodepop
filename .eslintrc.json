@@ -4,8 +4,5 @@
         "import"
     ],
     "rules": {
-      "no-param-reassign": ["error", { "props": false }],
-      "linebreak-style": "off",
-      "comma-dangle": "off"
     }
 }
