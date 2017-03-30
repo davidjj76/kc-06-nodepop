@@ -4,5 +4,6 @@
         "import"
     ],
     "rules": {
+      "no-console": "off"
     }
 }

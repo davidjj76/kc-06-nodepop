@@ -15,7 +15,7 @@ const advertisementSchema = new Schema({
     type: Number,
     required: true,
   },
-  imageUrl: {
+  picture: {
     type: String,
     default: '',
   },
