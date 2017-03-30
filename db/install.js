@@ -11,12 +11,12 @@ readFile(path.join(__dirname, 'install.json'))
     // Advertisements
     Advertisement.remove().exec()
       .then(Advertisement.insertMany(installJSON.advertisements))
-      .then(response => console.log('Install advertisements:', response.result))
+      .then(response => console.log('Installed advertisements:', response.result))
       .catch(err => console.error(err));
     // Users
     User.remove().exec()
       .then(User.insertMany(installJSON.users))
-      .then(response => console.log('Install users:', response.result))
+      .then(response => console.log('Installed users:', response.result))
       .catch(err => console.error(err));
   })
   .catch(err => console.error(err));
