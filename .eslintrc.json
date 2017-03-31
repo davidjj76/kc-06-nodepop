@@ -5,6 +5,7 @@
     ],
     "rules": {
       "no-console": "off",
-      "func-names": "off"
+      "func-names": "off",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^next$" }]
     }
 }

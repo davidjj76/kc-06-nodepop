@@ -31,30 +31,40 @@ const advertisementSchema = new Schema({
   },
 });
 
-advertisementSchema.statics.list = () => Advertisement.find().exec();
-
-advertisementSchema.statics.tagsList = (requestSort) => {
-  const unwind = { $unwind: '$tags' };
-  const group = {
-    $group: {
-      _id: '$tags',
-      tag: { $first: '$tags' },
-      advertisements: { $sum: 1 },
-    },
-  };
-  const project = {
-    $project: {
-      _id: 0,
-      tag: 1,
-      advertisements: 1,
-    },
-  };
-  const sort = { $sort: {} };
-  if (requestSort === 'advertisements' || requestSort === '-advertisements') {
-    sort.$sort = { advertisements: requestSort.indexOf('-') === 0 ? -1 : 1 };
-  }
-  sort.$sort.tag = 1;
-  return Advertisement.aggregate([unwind, group, project, sort]).exec();
+// static methods
+advertisementSchema.statics = {
+  list() {
+    return Advertisement.find().exec();
+  },
+  delete() {
+    return Advertisement.deleteMany().exec();
+  },
+  insert(advertisements) {
+    return Advertisement.insertMany(advertisements);
+  },
+  listTags(requestSort) {
+    const unwind = { $unwind: '$tags' };
+    const group = {
+      $group: {
+        _id: '$tags',
+        tag: { $first: '$tags' },
+        advertisements: { $sum: 1 },
+      },
+    };
+    const project = {
+      $project: {
+        _id: 0,
+        tag: 1,
+        advertisements: 1,
+      },
+    };
+    const sort = { $sort: {} };
+    if (requestSort === 'advertisements' || requestSort === '-advertisements') {
+      sort.$sort = { advertisements: requestSort.indexOf('-') === 0 ? -1 : 1 };
+    }
+    sort.$sort.tag = 1;
+    return Advertisement.aggregate([unwind, group, project, sort]).exec();
+  },
 };
 
 // create and export model

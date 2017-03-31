@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
 /* GET tags list */
 router.get('/tags', (req, res, next) => {
   const requestSort = req.query.sort;
-  Advertisement.tagsList(requestSort)
+  Advertisement.listTags(requestSort)
     .then(tags => res.json({
       success: true,
       result: tags,
