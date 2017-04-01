@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const createError = require('http-errors');
+const HTTPStatus = require('http-status');
 
 const index = require('./routes/index');
 const advertisementsAPI = require('./routes/apiv1/advertisements');
@@ -26,9 +28,7 @@ app.use('/apiv1/users', usersAPI);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  next(createError(HTTPStatus.NOT_FOUND, 'Not found.'));
 });
 
 // error handler
@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
+  res.status(err.status || HTTPStatus.INTERNAL_SERVER_ERROR);
   res.render('error');
 });
 

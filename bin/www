@@ -39,6 +39,16 @@ app.set('port', port);
 if (cluster.isMaster) {
   // one fork per cpu
   os.cpus().forEach(() => cluster.fork());
+  // worker online
+  cluster.on('online', (worker) => {
+    console.log(`Worker ${worker.process.pid} is online`);
+  });
+  // new fork on worker death
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} died with code ${code} and signal ${signal}`);
+    console.log('Starting a new worker...');
+    cluster.fork();
+  });
 } else {
   /**
    * Create HTTP server.

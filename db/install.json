@@ -4,6 +4,11 @@
       "name": "First user",
       "email": "firstUser@gmail.com",
       "password": "1234"
+    },
+    {
+      "name": "Second user",
+      "email": "secondUser@gmail.com",
+      "password": "5678"
     }
   ],
   "advertisements": [
