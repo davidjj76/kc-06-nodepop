@@ -5,6 +5,7 @@ const HTTPStatus = require('http-status');
 
 const User = require('../../models/User');
 const jwtAuth = require('../../lib/jwtAuth');
+const m = require('../../lib/errorMessages');
 
 const router = express.Router();
 
@@ -29,35 +30,34 @@ router.post('/', (req, res, next) => {
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === MongoErrors.DuplicateKey) {
         // duplicate key (email)
-        return next(new createError.Conflict('Email already exists.'));
+        return next(new createError.Conflict(m[req.language].EMAIL_ALREADY_EXISTS));
       }
-      return next(new createError.UnprocessableEntity('Invalid data.'));
+      return next(new createError.UnprocessableEntity(m[req.language].INVALID_DATA));
     });
 });
 
 /* POST users (authenticate). */
 router.post('/authenticate', (req, res, next) => {
   // get credentials
-  const email = req.body.email;
-  const password = req.body.password;
+  const email = req.body.email || '';
+  const password = req.body.password || '';
   // Find user by email
   User.findByEmail(email)
     .then((user) => {
       if (!user) {
-        throw new createError.Unauthorized('Invalid credentials.');
+        throw new createError.Unauthorized(m[req.language].INVALID_CREDENTIALS);
       }
       return user.comparePassword(password);
     })
     .then((user) => {
       if (!user) {
-        throw new createError.Unauthorized('Invalid credentials.');
+        throw new createError.Unauthorized(m[req.language].INVALID_CREDENTIALS);
       }
       return jwtAuth.createToken(user._id);
     })
-    .then(token => res.json({
+    .then(token => res.status(HTTPStatus.CREATED).json({
       success: true,
-      message: 'Enjoy your token!',
-      token,
+      result: { token },
     }))
     .catch(err => next(err));
 });

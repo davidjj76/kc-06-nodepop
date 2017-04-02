@@ -1,36 +1,15 @@
 const path = require('path');
-const fs = require('fs');
+const promises = require('../lib/utils').promises;
 
 require('./connection');
 const Advertisement = require('../models/Advertisement');
 const User = require('../models/User');
 
-function bufferToJson(buffer) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(JSON.parse(buffer.toString()));
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-
-function readFilePromise(filePath) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(data);
-    });
-  });
-}
-
 Promise.all([
   Advertisement.delete(),
   User.delete(),
-]).then(() => readFilePromise(path.join(__dirname, 'install.json')))
-  .then(bufferToJson)
+]).then(() => promises.readFile(path.join(__dirname, 'install.json')))
+  .then(promises.bufferToJson)
   .then(json => Promise.all([
     User.insert(json.users),
     Advertisement.insert(json.advertisements),
