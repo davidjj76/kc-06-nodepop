@@ -37,7 +37,6 @@ router.post('/', (req, res, next) => {
 
 /* POST users (authenticate). */
 router.post('/authenticate', (req, res, next) => {
-  let foundUser;
   // get credentials
   const email = req.body.email;
   const password = req.body.password;
@@ -47,14 +46,13 @@ router.post('/authenticate', (req, res, next) => {
       if (!user) {
         throw new createError.Unauthorized('Invalid credentials.');
       }
-      foundUser = user;
       return user.comparePassword(password);
     })
-    .then((isMatch) => {
-      if (!isMatch) {
+    .then((user) => {
+      if (!user) {
         throw new createError.Unauthorized('Invalid credentials.');
       }
-      return createToken(foundUser._id);
+      return createToken(user._id);
     })
     .then(token => res.json({
       success: true,
