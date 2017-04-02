@@ -50,9 +50,9 @@ router.post('/authenticate', (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        throw new jwtAuth.Unauthorized('Invalid credentials.');
+        throw new createError.Unauthorized('Invalid credentials.');
       }
-      return jwt.createToken(user._id);
+      return jwtAuth.createToken(user._id);
     })
     .then(token => res.json({
       success: true,
