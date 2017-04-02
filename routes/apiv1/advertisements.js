@@ -1,7 +1,12 @@
 const express = require('express');
 
-const router = express.Router();
 const Advertisement = require('../../models/Advertisement');
+const verifyToken = require('../../lib/jwt').verifyToken;
+
+const router = express.Router();
+
+// JWT Authentication (verify token)
+router.use(verifyToken);
 
 /* GET advertisements list */
 router.get('/', (req, res, next) => {

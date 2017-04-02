@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dbConfig = require('../localConfig').database;
 
 const connection = mongoose.connection;
 mongoose.Promise = global.Promise;
@@ -19,4 +20,4 @@ process.on('SIGINT', () => {
   });
 });
 
-mongoose.connect('mongodb://localhost/nodepop');
+connection.open(dbConfig.uri);

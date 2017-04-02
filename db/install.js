@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-require('./config');
+require('./connection');
 const Advertisement = require('../models/Advertisement');
 const User = require('../models/User');
 

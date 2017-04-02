@@ -74,7 +74,6 @@ userSchema.methods = {
   register() {
     return this.save();
   },
-
   comparePassword(candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
   },

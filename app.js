@@ -11,7 +11,7 @@ const usersAPI = require('./routes/apiv1/users');
 
 const app = express();
 
-require('./db/config');
+require('./db/connection');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
