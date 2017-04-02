@@ -75,7 +75,14 @@ userSchema.methods = {
     return this.save();
   },
   comparePassword(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(candidatePassword, this.password, (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res ? this : null);
+      });
+    });
   },
 };
 

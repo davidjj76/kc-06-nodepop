@@ -4,12 +4,12 @@ const createError = require('http-errors');
 const HTTPStatus = require('http-status');
 
 const User = require('../../models/User');
-const createToken = require('../../lib/jwt').createToken;
+const jwtAuth = require('../../lib/jwtAuth');
 
 const router = express.Router();
 
 /* GET users list. */
-router.get('/', (req, res, next) => {
+router.get('/', jwtAuth.verifyToken, (req, res, next) => {
   User.list()
     .then(users => res.json({
       success: true,
@@ -37,7 +37,6 @@ router.post('/', (req, res, next) => {
 
 /* POST users (authenticate). */
 router.post('/authenticate', (req, res, next) => {
-  let foundUser;
   // get credentials
   const email = req.body.email;
   const password = req.body.password;
@@ -47,14 +46,13 @@ router.post('/authenticate', (req, res, next) => {
       if (!user) {
         throw new createError.Unauthorized('Invalid credentials.');
       }
-      foundUser = user;
       return user.comparePassword(password);
     })
-    .then((isMatch) => {
-      if (!isMatch) {
-        throw new createError.Unauthorized('Invalid credentials.');
+    .then((user) => {
+      if (!user) {
+        throw new jwtAuth.Unauthorized('Invalid credentials.');
       }
-      return createToken(foundUser._id);
+      return jwt.createToken(user._id);
     })
     .then(token => res.json({
       success: true,

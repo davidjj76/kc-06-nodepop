@@ -1,7 +1,7 @@
 const express = require('express');
 
 const Advertisement = require('../../models/Advertisement');
-const verifyToken = require('../../lib/jwt').verifyToken;
+const verifyToken = require('../../lib/jwtAuth').verifyToken;
 
 const router = express.Router();
 
