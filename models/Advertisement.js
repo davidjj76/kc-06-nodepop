@@ -1,5 +1,6 @@
-let Advertisement;
 const mongoose = require('mongoose');
+
+let Advertisement;
 
 const Schema = mongoose.Schema;
 
@@ -29,7 +30,18 @@ const advertisementSchema = new Schema({
     ],
     required: true,
   },
+}, {
+  // Schema options
+  id: false,
+  toJSON: { virtuals: true },
+  timestamps: { createdAt: 'publishedAt' },
 });
+
+// virtuals
+advertisementSchema.virtual('pictureUrl')
+  .get(function () {
+    return `http://localhost:3000/images/advertisements/${this.picture}`;
+  });
 
 // static methods
 advertisementSchema.statics = {

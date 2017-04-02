@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const MongoErrors = require('mongo-errors');
 const createError = require('http-errors');
 const HTTPStatus = require('http-status');
@@ -20,11 +20,7 @@ router.get('/', (req, res, next) => {
 /* POST users (register). */
 router.post('/', (req, res, next) => {
   const newUser = new User(req.body);
-  bcrypt.hash(newUser.password, 10)
-    .then((hash) => {
-      newUser.password = hash;
-      return newUser.register();
-    })
+  newUser.register()
     .then(user => res.status(HTTPStatus.CREATED).json({
       success: true,
       result: user,
@@ -36,6 +32,46 @@ router.post('/', (req, res, next) => {
       }
       return next(createError(HTTPStatus.UNPROCESSABLE_ENTITY, 'Invalid data.'));
     });
+});
+
+/* POST users (authenticate). */
+router.post('/authenticate', (req, res, next) => {
+  let foundUser;
+  // get credentials
+  const email = req.body.email;
+  const password = req.body.password;
+  // Find user by email
+  User.findByEmail(email)
+    .then((user) => {
+      if (!user) {
+        throw new createError.Unauthorized('Invalid credentials.');
+      }
+      foundUser = user;
+      return user.comparePassword(password);
+    })
+    .then((isMatch) => {
+      if (!isMatch) {
+        throw new createError.Unauthorized('Invalid credentials.');
+      }
+      // Valid credentials, create token
+      return new Promise((resolve, reject) => {
+        const payload = { user_id: foundUser._id };
+        const secretKey = 'thisismysecret';
+        const options = { expiresIn: '2d' };
+        jwt.sign(payload, secretKey, options, (err, token) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(token);
+        });
+      });
+    })
+    .then(token => res.json({
+      success: true,
+      message: 'Enjoy your token!',
+      token,
+    }))
+    .catch(err => next(err));
 });
 
 module.exports = router;

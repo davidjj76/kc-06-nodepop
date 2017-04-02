@@ -9,9 +9,9 @@ const index = require('./routes/index');
 const advertisementsAPI = require('./routes/apiv1/advertisements');
 const usersAPI = require('./routes/apiv1/users');
 
-require('./db/config');
-
 const app = express();
+
+require('./db/config');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -16,6 +16,7 @@
     "express": "~4.14.1",
     "http-errors": "^1.6.1",
     "http-status": "^1.0.1",
+    "jsonwebtoken": "^7.3.0",
     "mongo-errors": "^1.0.1",
     "mongoose": "^4.9.1",
     "morgan": "~1.7.0"

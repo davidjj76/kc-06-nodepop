@@ -30,6 +30,12 @@
       "price": 24500.00,
       "picture": "volvo.png",
       "tags": ["motor", "work"]
+    }, {
+      "name": "HP Laserjet 1100",
+      "forSale": true,
+      "price": 45.00,
+      "picture": "printer.png",
+      "tags": ["work"]      
     }
   ]
 }
