@@ -31,7 +31,7 @@ app.use('/apiv1/advertisements', advertisementsAPI);
 app.use('/apiv1/users', usersAPI);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => next(createError(HTTPStatus.NOT_FOUND, res.messages.NOT_FOUND)));
+app.use((req, res, next) => next(new createError.NotFound(res.messages.NOT_FOUND)));
 
 // error handler
 app.use((err, req, res, next) => {
@@ -40,7 +40,8 @@ app.use((err, req, res, next) => {
     // API - return json
     return res.json({
       success: false,
-      error: err.message,
+      lang: res.language,
+      message: err.message,
     });
   }
   // set locals, only providing error in development

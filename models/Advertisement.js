@@ -40,7 +40,7 @@ const advertisementSchema = new Schema({
 // virtuals
 advertisementSchema.virtual('pictureUrl')
   .get(function () {
-    return `http://localhost:3000/images/advertisements/${this.picture}`;
+    return `${this.baseUri}/images/advertisements/${this.picture}`;
   });
 
 // static methods
