@@ -1,13 +1,12 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const requestLanguage = require('express-request-language');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const HTTPStatus = require('http-status');
 
 const isApi = require('./lib/utils').isApi;
-const m = require('./lib/errorMessages');
+const messages = require('./lib/messages');
 
 const index = require('./routes/index');
 const advertisementsAPI = require('./routes/apiv1/advertisements');
@@ -22,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(requestLanguage({ languages: ['en', 'es'] }));
+app.use(messages);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,7 +31,7 @@ app.use('/apiv1/advertisements', advertisementsAPI);
 app.use('/apiv1/users', usersAPI);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => next(createError(HTTPStatus.NOT_FOUND, m[req.language].NOT_FOUND)));
+app.use((req, res, next) => next(createError(HTTPStatus.NOT_FOUND, res.messages.NOT_FOUND)));
 
 // error handler
 app.use((err, req, res, next) => {

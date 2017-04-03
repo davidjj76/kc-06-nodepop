@@ -5,7 +5,6 @@ const HTTPStatus = require('http-status');
 
 const User = require('../../models/User');
 const jwtAuth = require('../../lib/jwtAuth');
-const m = require('../../lib/errorMessages');
 
 const router = express.Router();
 
@@ -30,9 +29,9 @@ router.post('/', (req, res, next) => {
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === MongoErrors.DuplicateKey) {
         // duplicate key (email)
-        return next(new createError.Conflict(m[req.language].EMAIL_ALREADY_EXISTS));
+        return next(new createError.Conflict(res.messages.EMAIL_ALREADY_EXISTS));
       }
-      return next(new createError.UnprocessableEntity(m[req.language].INVALID_DATA));
+      return next(new createError.UnprocessableEntity(res.messages.INVALID_DATA));
     });
 });
 
@@ -45,13 +44,13 @@ router.post('/authenticate', (req, res, next) => {
   User.findByEmail(email)
     .then((user) => {
       if (!user) {
-        throw new createError.Unauthorized(m[req.language].INVALID_CREDENTIALS);
+        throw new createError.Unauthorized(res.messages.INVALID_CREDENTIALS);
       }
       return user.comparePassword(password);
     })
     .then((user) => {
       if (!user) {
-        throw new createError.Unauthorized(m[req.language].INVALID_CREDENTIALS);
+        throw new createError.Unauthorized(res.messages.INVALID_CREDENTIALS);
       }
       return jwtAuth.createToken(user._id);
     })

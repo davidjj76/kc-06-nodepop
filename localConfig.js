@@ -4,4 +4,8 @@ module.exports = {
     secretKey: 'thisismysecret',
     expiresIn: '2d',
   },
+  languages: [
+    'en',
+    'es',
+  ],
 };
