@@ -11,15 +11,10 @@ const router = express.Router();
 /* GET users list. */
 router.get('/', jwtAuth.verifyToken, (req, res, next) => {
   User.list()
-    .then((users) => {
-      if (!users) {
-        throw new createError.NotFound(res.messages.NOT_FOUND);
-      }
-      res.json({
-        success: true,
-        result: users,
-      });
-    })
+    .then(users => res.json({
+      success: true,
+      result: users,
+    }))
     .catch(err => next(err));
 });
 

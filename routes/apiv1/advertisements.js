@@ -12,17 +12,12 @@ router.use(verifyToken);
 /* GET advertisements list */
 router.get('/', (req, res, next) => {
   Advertisement.list()
-    .then((advertisements) => {
-      if (!advertisements.length) {
-        throw new createError.NotFound(res.messages.NOT_FOUND);
-      }
-      res.json({
-        success: true,
-        result: advertisements.map(advertisement => Object.assign(advertisement, {
-          baseUri: `${req.protocol}://${req.headers.host}`,
-        })),
-      });
-    })
+    .then(advertisements => res.json({
+      success: true,
+      result: advertisements.map(advertisement => Object.assign(advertisement, {
+        baseUri: `${req.protocol}://${req.headers.host}`,
+      })),
+    }))
     .catch(err => next(err));
 });
 
@@ -30,15 +25,10 @@ router.get('/', (req, res, next) => {
 router.get('/tags', (req, res, next) => {
   const requestSort = req.query.sort;
   Advertisement.listTags(requestSort)
-    .then((tags) => {
-      if (!tags.length) {
-        throw new createError.NotFound(res.messages.NOT_FOUND);
-      }
-      return res.json({
-        success: true,
-        result: tags,
-      });
-    })
+    .then(tags => res.json({
+      success: true,
+      result: tags,
+    }))
     .catch(err => next(err));
 });
 
