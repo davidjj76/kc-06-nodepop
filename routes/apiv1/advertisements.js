@@ -14,6 +14,8 @@ router.get('/', (req, res, next) => {
   const forSale = req.query.forSale || null;
   const name = req.query.name || '';
   const price = req.query.price || '';
+  const skip = parseInt(req.query.skip, 10);
+  const limit = parseInt(req.query.limit, 10);
 
   const filter = {};
   if (tags) filter.tags = { $in: tags.split(',') };
@@ -25,7 +27,7 @@ router.get('/', (req, res, next) => {
   if (price) filter.price = price;
   console.log(filter);
 
-  Advertisement.list(filter, 0, 0, 'sort')
+  Advertisement.list(filter, skip, limit, 'sort')
     .then(advertisements => res.json({
       success: true,
       result: advertisements.map(advertisement => Object.assign(advertisement, {
