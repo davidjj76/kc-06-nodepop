@@ -45,8 +45,12 @@ advertisementSchema.virtual('pictureUrl')
 
 // static methods
 advertisementSchema.statics = {
-  list() {
-    return Advertisement.find().exec();
+  list(filter, skip, limit, sort) {
+    return Advertisement.find(filter)
+      .skip(skip)
+      .limit(limit)
+      .sort(sort)
+      .exec();
   },
   delete() {
     return Advertisement.deleteMany().exec();
