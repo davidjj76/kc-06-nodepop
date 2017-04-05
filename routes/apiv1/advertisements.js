@@ -42,10 +42,12 @@ router.get('/', (req, res, next) => {
     if (priceLimits[1] !== '') { filter.price.$lte = priceLimits[1]; }
   }
 
-  // TODO: implement order
+  // Query sorting
+  const sort = req.query.sort;
+
   // TODO: implement includeTotal
 
-  Advertisement.list(filter, skip, limit, 'sort')
+  Advertisement.list(filter, skip, limit, sort)
     .then(advertisements => res.json({
       success: true,
       result: advertisements.map(advertisement => Object.assign(advertisement, {
