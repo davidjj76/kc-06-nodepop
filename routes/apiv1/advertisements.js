@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 
 const Advertisement = require('../../models/Advertisement');
 const verifyToken = require('../../lib/jwtAuth').verifyToken;
@@ -18,14 +19,31 @@ router.get('/', (req, res, next) => {
   const limit = parseInt(req.query.limit, 10);
 
   const filter = {};
+
+  // Tags filter (at least match one tag from query)
   if (tags) filter.tags = { $in: tags.split(',') };
+
+  // For Sale filter (accepts true or false)
   if (forSale !== null) {
     if (forSale === 'true') filter.forSale = true;
     if (forSale === 'false') filter.forSale = false;
   }
+
+  // Name filter (name starts with, no case sensitive)
   if (name) filter.name = new RegExp(`^${name}`, 'i');
-  if (price) filter.price = price;
-  console.log(filter);
+
+  // Price filter (price between min and max)
+  const priceLimits = price.split('-');
+  if (priceLimits.length === 1) {
+    if (priceLimits[0] !== '') { filter.price = priceLimits[0]; }
+  } else {
+    filter.price = {};
+    if (priceLimits[0] !== '') { filter.price.$gte = priceLimits[0]; }
+    if (priceLimits[1] !== '') { filter.price.$lte = priceLimits[1]; }
+  }
+
+  // TODO: implement order
+  // TODO: implement includeTotal
 
   Advertisement.list(filter, skip, limit, 'sort')
     .then(advertisements => res.json({
@@ -34,7 +52,12 @@ router.get('/', (req, res, next) => {
         baseUri: `${req.protocol}://${req.headers.host}`,
       })),
     }))
-    .catch(err => next(err));
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new createError.BadRequest(res.messages.CAST_ERROR));
+      }
+      return next(err);
+    });
 });
 
 /* GET tags list */

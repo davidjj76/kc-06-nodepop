@@ -31,7 +31,10 @@ router.post('/', (req, res, next) => {
         // duplicate key (email)
         return next(new createError.Conflict(res.messages.EMAIL_ALREADY_EXISTS));
       }
-      return next(new createError.UnprocessableEntity(res.messages.INVALID_DATA));
+      if (err.name === 'ValidationError') {
+        return next(new createError.UnprocessableEntity(res.messages.INVALID_DATA));
+      }
+      return next(err);
     });
 });
 
