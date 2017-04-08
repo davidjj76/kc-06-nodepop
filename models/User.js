@@ -64,6 +64,9 @@ userSchema.statics = {
   insert(users) {
     return Promise.all(users.map(user => User.create(user)));
   },
+  findById(id) {
+    return User.findOne({ _id: id }).exec();
+  },
   findByEmail(email) {
     return User.findOne({ email }).exec();
   },

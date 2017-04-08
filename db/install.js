@@ -1,5 +1,5 @@
 const path = require('path');
-const promises = require('../lib/utils').promises;
+const { readFile, bufferToJson } = require('../lib/utils').promises;
 
 require('./connection');
 const Advertisement = require('../models/Advertisement');
@@ -8,8 +8,8 @@ const User = require('../models/User');
 Promise.all([
   Advertisement.delete(),
   User.delete(),
-]).then(() => promises.readFile(path.join(__dirname, 'install.json')))
-  .then(promises.bufferToJson)
+]).then(() => readFile(path.join(__dirname, 'install.json')))
+  .then(bufferToJson)
   .then(json => Promise.all([
     User.insert(json.users),
     Advertisement.insert(json.advertisements),

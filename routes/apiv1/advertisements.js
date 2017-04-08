@@ -2,7 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 
 const Advertisement = require('../../models/Advertisement');
-const verifyToken = require('../../lib/jwtAuth').verifyToken;
+const { verifyToken } = require('../../lib/jwtAuth');
 
 const router = express.Router();
 

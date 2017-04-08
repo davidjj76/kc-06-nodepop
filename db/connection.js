@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbConfig = require('../localConfig').database;
+const { database } = require('../localConfig');
 
 const connection = mongoose.connection;
 mongoose.Promise = global.Promise;
@@ -20,4 +20,4 @@ process.on('SIGINT', () => {
   });
 });
 
-connection.open(dbConfig.uri);
+connection.open(database.uri);

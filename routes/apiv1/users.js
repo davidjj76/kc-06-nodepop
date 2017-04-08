@@ -4,7 +4,7 @@ const createError = require('http-errors');
 const HTTPStatus = require('http-status');
 
 const User = require('../../models/User');
-const createToken = require('../../lib/jwtAuth').createToken;
+const { createToken } = require('../../lib/jwtAuth');
 
 const router = express.Router();
 

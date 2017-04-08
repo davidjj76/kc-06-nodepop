@@ -125,7 +125,7 @@
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "Order advertisements by field: ascending (sort=name); descending (sort=-name).",
+                            "description": "Order advertisements by field: ascending (sort=price); descending (sort=-price).",
                             "location": "query"
                         }
                     }

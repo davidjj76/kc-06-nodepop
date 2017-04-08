@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const HTTPStatus = require('http-status');
 
-const isApi = require('./lib/utils').isApi;
+const { isApi } = require('./lib/utils');
 const messages = require('./lib/messages');
 
 const index = require('./routes/index');
