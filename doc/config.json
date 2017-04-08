@@ -1,0 +1,16 @@
+{
+    "title" : "I/O Docs - http://github.com/mashery/iodocs",
+    "address": "0.0.0.0",
+    "port" : 3001,
+    "apiConfigDir" : "./public/data/",
+    "debug" : false,
+    "sessionSecret" : "12345",
+    "https" : {
+        "enabled": false,
+        "keyPath": "/Path/to/my.key.pem",
+        "certPath": "/Path/to/my.crt.pem",
+        "caCertPath": "/Path/to/my.ca.crt.pem",
+        "requestCert": true,
+        "rejectUnauthorized": false
+    }
+}

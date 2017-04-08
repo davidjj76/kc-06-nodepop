@@ -1,0 +1,166 @@
+{
+    "name": "Nodepop API",
+    "description": "API for Nodepop site.",
+    "protocol": "rest",
+    "basePath": "http://localhost:3000",
+    "publicPath": "/apiv1",
+    "headers": {
+        "Accept": "application/json",
+        "Accept-Language": "en,es;q=0.8"
+    },
+    "resources": {
+        "Users": {
+            "methods": {
+                "ListUsers": {
+                    "name": "List Users",
+                    "path": "/users",
+                    "httpMethod": "GET",
+                    "description": "Gets a list of all users in platform.",
+                    "parameters": {
+                        "token": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Authentication token.",
+                            "location": "query"
+                        }
+                    }
+                },
+                "RegisterUser": {
+                    "name": "Register User",
+                    "path": "/users",
+                    "httpMethod": "POST",
+                    "description": "Creates a new user in nodepop platform.",
+                    "parameters": {
+                        "name": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Personal name of user.",
+                            "location": "body"
+                        },
+                        "email": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Personal email of user.",
+                            "location": "body"
+                        },
+                        "password": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Password of user.",
+                            "location": "body"
+                        }
+                    }
+                },
+                "AuthenticateUser": {
+                    "name": "Authenticate User",
+                    "path": "/users/authenticate",
+                    "httpMethod": "POST",
+                    "description": "Checks user credentials and returns a token for use in other endpoints.",
+                    "parameters": {
+                        "email": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Personal email of user.",
+                            "location": "body"
+                        },
+                        "password": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Password of user.",
+                            "location": "body"
+                        }
+                    }
+                }
+            }
+        },
+        "Advertisements": {
+            "methods": {
+                "ListAdvertisements": {
+                    "name": "List Advertisements",
+                    "path": "/advertisements",
+                    "httpMethod": "GET",
+                    "description": "Gets a list of all published advertisements.",
+                    "parameters": {
+                        "token": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Authentication token.",
+                            "location": "query"
+                        },
+                        "tags": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Tags filter (separated comma list). At least one tag must match.",
+                            "location": "query"
+                        },
+                        "forSale": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "For sale filter (true, false or none).",
+                            "location": "query"
+                        },
+                        "name": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Name filter (shows advertisements that starts with filter).",
+                            "location": "query"
+                        },
+                        "price": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Price range filter (equal, greather than, lower than, between).",
+                            "location": "query"
+                        },
+                        "skip": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Skip first n advertisements.",
+                            "location": "query"
+                        },
+                        "limit": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Limits results to n advertisements.",
+                            "location": "query"
+                        }
+                    }
+                },
+                "ListTags": {
+                    "name": "List Tags",
+                    "path": "/advertisements/tags",
+                    "httpMethod": "GET",
+                    "description": "Gets a list of all tags of published advertisements, and the total of advertisements of each tag.",
+                    "parameters": {
+                        "token": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "Authentication token.",
+                            "location": "query"
+                        },
+                        "sort": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Order tags by advertisements: ascending (sort=advertisements); descending (sort=-adverisements).",
+                            "location": "query"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
