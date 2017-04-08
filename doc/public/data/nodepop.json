@@ -120,6 +120,13 @@
                             "default": "",
                             "description": "Limits results to n advertisements (limit=1).",
                             "location": "query"
+                        },
+                        "sort": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "description": "Order advertisements by field: ascending (sort=name); descending (sort=-name).",
+                            "location": "query"
                         }
                     }
                 },
