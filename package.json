@@ -8,6 +8,7 @@
     "installDB": "node ./db/install.js",
     "lint": "./node_modules/eslint/bin/eslint.js . --fix",
     "watch:lint": "node node_modules/eslint-watch/bin/esw -w --fix",
+    "installDocs": "npm install --prefix doc",
     "docs": "npm start --prefix doc"
   },
   "dependencies": {
