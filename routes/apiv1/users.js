@@ -4,19 +4,19 @@ const createError = require('http-errors');
 const HTTPStatus = require('http-status');
 
 const User = require('../../models/User');
-const jwtAuth = require('../../lib/jwtAuth');
+const createToken = require('../../lib/jwtAuth').createToken;
 
 const router = express.Router();
 
 /* GET users list. */
-router.get('/', jwtAuth.verifyToken, (req, res, next) => {
-  User.list()
-    .then(users => res.json({
-      success: true,
-      result: users,
-    }))
-    .catch(err => next(err));
-});
+// router.get('/', jwtAuth.verifyToken, (req, res, next) => {
+//   User.list()
+//     .then(users => res.json({
+//       success: true,
+//       result: users,
+//     }))
+//     .catch(err => next(err));
+// });
 
 /* POST users (register). */
 router.post('/', (req, res, next) => {
@@ -55,7 +55,7 @@ router.post('/authenticate', (req, res, next) => {
       if (!user) {
         throw new createError.Unauthorized(res.messages.INVALID_CREDENTIALS);
       }
-      return jwtAuth.createToken(user._id);
+      return createToken(user._id);
     })
     .then(token => res.status(HTTPStatus.CREATED).json({
       success: true,

@@ -7,7 +7,8 @@
     "dev": "./node_modules/.bin/nodemon",
     "installDB": "node ./db/install.js",
     "lint": "./node_modules/eslint/bin/eslint.js . --fix",
-    "watch:lint": "node node_modules/eslint-watch/bin/esw -w --fix"
+    "watch:lint": "node node_modules/eslint-watch/bin/esw -w --fix",
+    "docs": "npm start --prefix doc"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",

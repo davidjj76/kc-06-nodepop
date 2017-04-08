@@ -11,21 +11,6 @@
     "resources": {
         "Users": {
             "methods": {
-                "ListUsers": {
-                    "name": "List Users",
-                    "path": "/users",
-                    "httpMethod": "GET",
-                    "description": "Gets a list of all users in platform.",
-                    "parameters": {
-                        "token": {
-                            "type": "string",
-                            "required": true,
-                            "default": "",
-                            "description": "Authentication token.",
-                            "location": "query"
-                        }
-                    }
-                },
                 "RegisterUser": {
                     "name": "Register User",
                     "path": "/users",
@@ -59,7 +44,7 @@
                     "name": "Authenticate User",
                     "path": "/users/authenticate",
                     "httpMethod": "POST",
-                    "description": "Checks user credentials and returns a token for use in other endpoints.",
+                    "description": "Checks user credentials and returns a token for use in other endpoints. Token expires in 48 hours.",
                     "parameters": {
                         "email": {
                             "type": "string",
@@ -98,42 +83,42 @@
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "Tags filter (separated comma list). At least one tag must match.",
+                            "description": "Tags filter separated by comma (tags=mobile,motor). At least one tag must match.",
                             "location": "query"
                         },
                         "forSale": {
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "For sale filter (true, false or none).",
+                            "description": "For sale filter (forSale=true, forSale=false).",
                             "location": "query"
                         },
                         "name": {
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "Name filter (shows advertisements that starts with filter).",
+                            "description": "Name filter, shows advertisements that starts with text (name=vo).",
                             "location": "query"
                         },
                         "price": {
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "Price range filter (equal, greather than, lower than, between).",
+                            "description": "Price range filter: equals (price=50), greater or equals (price=50-), lower or equals (price=-50), between (price=10-50).",
                             "location": "query"
                         },
                         "skip": {
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "Skip first n advertisements.",
+                            "description": "Skip first n advertisements (skip=2).",
                             "location": "query"
                         },
                         "limit": {
                             "type": "string",
                             "required": false,
                             "default": "",
-                            "description": "Limits results to n advertisements.",
+                            "description": "Limits results to n advertisements (limit=1).",
                             "location": "query"
                         }
                     }
