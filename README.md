@@ -53,7 +53,7 @@ $ npm run docs
 
 6) Los endpoints del API estarán disponibles a partir de http://localhost:3000/apiv1. Entra en la url de documentación http://localhost:3001 para más info y  probar los diferentes endpoints del API. Para modificar el idioma de las peticiones se puede hacer en el fichero ./doc/public/data/nodepop.json (en headers:Accept-Language) o bien realizar las peticiones con Postman y modificar la cabecera "Accept-Language".
 
-7) Se dispone de un linter de código mediante ESLint que sigue la guía de estilo de Airbnb. Se puede ejecutar con:
+7) Se dispone de un linter de código mediante *ESLint* que sigue la guía de *Airbnb*. Se puede ejecutar con:
 
 ```
 $ npm run lint
