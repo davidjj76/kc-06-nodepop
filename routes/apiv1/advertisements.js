@@ -2,12 +2,25 @@ const express = require('express');
 const createError = require('http-errors');
 
 const Advertisement = require('../../models/Advertisement');
+const User = require('../../models/User');
 const { verifyToken } = require('../../lib/jwtAuth');
 
 const router = express.Router();
 
 // JWT Authentication (verify token)
 router.use(verifyToken);
+
+// Checks if user exits
+router.use((req, res, next) => {
+  User.findById(req.userId)
+    .then((user) => {
+      if (!user) {
+        return next(new createError.Unauthorized(res.messages.INVALID_CREDENTIALS));
+      }
+      return next();
+    })
+    .catch(err => next(err));
+});
 
 /* GET advertisements list */
 router.get('/', (req, res, next) => {
