@@ -55,7 +55,7 @@ $ npm run docs
 
 Para modificar el idioma de las peticiones se puede hacer en el fichero *./doc/public/data/nodepop.json* (en headers:Accept-Language) o bien realizar las peticiones con *Postman* y modificar la cabecera "Accept-Language".
 
-En estos momentos sólo se aceptan Inglés y Español (en este orden de prioridad). Para añadir más, simplemente añadir la clave del lenguaje a la sección *languages* del fichero *localConfig.js* y añadir un archivo con los mensajes en el directorio *./lib/messages*.
+En estos momentos sólo se aceptan Inglés y Español (en este orden de prioridad). Para añadir más, simplemente añadir la clave del lenguaje a la sección *languages* del fichero *localConfig.js* y añadir un archivo con los mensajes en el directorio *./locale*.
 
 7) Se dispone de un linter de código mediante *ESLint* que sigue la guía de *Airbnb*. Se puede ejecutar con:
 
