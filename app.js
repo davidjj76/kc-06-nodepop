@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const trimBody = require('connect-trim-body');
 const createError = require('http-errors');
 const HTTPStatus = require('http-status');
 
@@ -24,6 +25,7 @@ app.use(logger('dev'));
 app.use(messages);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(trimBody());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
