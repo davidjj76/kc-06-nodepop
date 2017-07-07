@@ -1,7 +1,7 @@
 module.exports = {
-  database: { uri: 'mongodb://localhost:27017/nodepop' },
+  database: { uri: process.env.DATABASE_URI || 'mongodb://localhost:27017/nodepop' },
   jwt: {
-    secretKey: 'thisismysecret',
+    secretKey: process.env.JWT_SECRET_KEY || 'thisismysecret',
     expiresIn: '2d',
   },
   languages: [
